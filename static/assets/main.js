@@ -590,6 +590,18 @@ window.exportLogs = exportLogs;
 window.quickTest = quickTest;
 window.openConfig = openConfig;
 window.viewLastResults = viewLastResults;
-window.startTest = function() {
-    window.testManager.startTest();
+window.loadAnalytics = loadAnalytics;
+window.updateDashboardStats = updateDashboardStats;
+
+// Export test management functions
+window.startTest = async function() {
+    await window.testManager.startTest();
+};
+
+window.stopTest = function() {
+    window.testManager.stopTest();
+};
+
+window.toggleTestMode = function() {
+    window.testManager.toggleTestMode();
 };

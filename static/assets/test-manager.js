@@ -21,96 +21,95 @@ export class TestManager {
 
     // Test execution methods
     startTest() {
-    if (this.isTestRunning) {
-        return;
-    }
-    
-    // Check test mode first
-    const mode = document.querySelector('input[name="testMode"]:checked')?.value || 'normal';
-    
-    if (mode === 'coding') {
-        this.startCodingTest();
-        return;
-    }
-    
-    // Handle normal adversarial test
-    this.isTestRunning = true;
-    this.updateTestControls(true);
-    
-    
-// Clear previous logs and results
-    this.clearResults();
-    if (window.uiManager) {
+        if (this.isTestRunning) {
+            return;
+        }
+        
+        const mode = document.querySelector('input[name="testMode"]:checked')?.value || 'normal';
+        
+        if (mode === 'coding') {
+            this.startCodingTest();
+            return;
+        }
+        
+        // Handle normal adversarial test
+        this.isTestRunning = true;
+        this.updateTestControls(true);
+        
+        // Clear previous logs and results
         window.uiManager.clearLogs();
-    }
-    
-    // Get configuration
-    // const config = getCurrentConfig();
-    const config = this.getCurrentConfig();
-    
-    // Validate configuration
-    // Validate configuration
-    if (!config.aut_model || !config.aut_role || !config.aut_backstory || !config.aut_system_prompt) {
-        window.uiManager.showNotification('Please fill in all configuration fields', 'error');
-        this.resetTestUI();
-        return;
-    }
-    
-    window.uiManager.appendLogMessage('Updating configuration...', 'info');
-    
-    // appendLogMessage('Updating configuration...', 'info');
-    
-    // Update configuration on server first
-    fetch('/update_config', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(config)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            appendLogMessage('Configuration updated successfully', 'success');
-            // Start the normal test
-            return fetch('/start_test', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    mode: 'normal',
-                    config: config
-                })
-            });
-        } else {
-            throw new Error(data.error || 'Failed to update configuration');
+        this.clearResults();
+        
+        // Get configuration
+        const config = this.getCurrentConfig();
+        
+        // Validate configuration
+        if (!config.aut_model || !config.aut_role || !config.aut_backstory || !config.aut_system_prompt) {
+            window.uiManager.updateStatus('Please fill in all configuration fields', 'error');
+            this.resetTestUI();
+            return;
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updateStatus('Adversarial test started successfully', 'success');
-            this.appendLogMessage('=== Adversarial Test Started ===', 'info');
-            this.appendLogMessage('Loading model and initializing agents...', 'info');
-            
-            // Start timer
-            testStartTime = Date.now();
-            testTimer = setInterval(updateTestTimer, 1000);
-            
-            // Poll for progress updates
-            pollTestProgress();
-        } else {
-            throw new Error(data.error || 'Failed to start test');
-        }
-    })
-    .catch(error => {
-        console.error('Error starting test:', error);
-        updateStatus('Error starting test: ' + error.message, 'error');
-        this.appendLogMessage('Error: ' + error.message, 'error');
-        this.resetTestUI();
-    });
-}
+        
+        window.uiManager.appendLogMessage('Updating configuration...', 'info');
+        
+        // Update configuration on server first
+        fetch('/update_config', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(config)
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`Server error: ${response.status} - ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                window.uiManager.appendLogMessage('Configuration updated successfully', 'success');
+                // Start the normal test
+                return fetch('/start_test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mode: 'normal',
+                        config: config
+                    })
+                });
+            } else {
+                throw new Error(data.error || 'Failed to update configuration');
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.uiManager.updateStatus('Adversarial test started successfully', 'success');
+                window.uiManager.appendLogMessage('=== Adversarial Test Started ===', 'info');
+                window.uiManager.appendLogMessage('Loading model and initializing agents...', 'info');
+                
+                // Start timer
+                this.testStartTime = Date.now();
+                this.testTimer = setInterval(() => this.updateTestTimer(), 1000);
+                
+                // Poll for progress updates
+                this.pollTestProgress();
+            } else {
+                throw new Error(data.error || 'Failed to start test');
+            }
+        })
+        .catch(error => {
+            console.error('Error starting test:', error);
+            window.uiManager.updateStatus('Error starting test: ' + error.message, 'error');
+            window.uiManager.appendLogMessage('Error: ' + error.message, 'error');
+            this.resetTestUI();
+        });
+    }
 
     startCodingTest() {
         const prompt = document.getElementById('codingPrompt')?.value.trim();
@@ -632,6 +631,7 @@ export class TestManager {
         event.target.classList.add('active');
     }
 }
+
 
 // Export methods to global scope for HTML onclick handlers
 window.TestManager = TestManager;
