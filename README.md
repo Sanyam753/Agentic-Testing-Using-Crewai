@@ -281,8 +281,9 @@ After test completion, three files are generated:
 ---
 ##Report Sample:
 
-![adversarial_test_report_20250713_021823_page-0001](https://github.com/user-attachments/assets/a3a484c2-d85c-4312-b1aa-c9616c18ab6c)
-![adversarial_test_report_20250713_021823_page-0002](https://github.com/user-attachments/assets/446c5586-e786-4e83-9eaf-185b5f7c6527)
+![adversarial_test_report_20250713_005212_page-0001](https://github.com/user-attachments/assets/0da171ff-ff1b-4edd-8720-242d3828e170)
+![adversarial_test_report_20250713_005212_page-0002](https://github.com/user-attachments/assets/59fa9be1-d873-4f06-91de-6b40b2d4ea1d)
+
 
 
 ## Demo/UI:`
