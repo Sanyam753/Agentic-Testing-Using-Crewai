@@ -1,6 +1,6 @@
 ## Agentic Testing Framework using CrewAI and LM Studio
 
-![Framework Overview](workflow.png) <!-- Add actual image file to repo -->
+[Framework Overview]workflow.png<img width="1201" height="732" alt="Agentic testing" src="https://github.com/user-attachments/assets/d1e5805e-69db-403e-ab91-0f6ae7fc5fe8" /><!-- Add actual image file to repo -->
 
 ### Table of Contents
 1. [Introduction](#introduction)
@@ -141,9 +141,9 @@ graph LR
 3. **Download Models in LM Studio**:
    - Launch LM Studio
    - Search and download recommended models:
-     - Qwen1.5-4B
-     - Qwen1.5-7B
-     - Qwen1.5-14B
+     - Qwen3-4B
+     - Qwen3-8B
+     - Qwen3-14B
    - Store models in accessible directory
 
 4. **Configure LM Studio Server**:
@@ -322,8 +322,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Sanyam Sankhala**  
 - GitHub: [@Sanyam753](https://github.com/Sanyam753)
-- LinkedIn: [sanyam-sankhala](https://linkedin.com/in/sanyam-sankhala)
-- Email: sanyam.sankhala@example.com
+- LinkedIn: [sanyam-sankhala](https://www.linkedin.com/in/sanyam-sankhala-00809027a/)
+- Website: [sanyam-sankhala](https://sanyam.pythonanywhere.com/)
+- Email: sanyam.sankhala@13.com
 
 ---
 
