@@ -1,0 +1,132 @@
+{
+  "hospital": {
+    "appointments": [
+      {
+        "patient_name": "Ravi Kumar",
+        "doctor": "Dr. Meera S",
+        "date": "2025-07-05",
+        "time": "10:00 AM"
+      },
+      {
+        "patient_name": "Anjali Verma",
+        "doctor": "Dr. Karthik Nair",
+        "date": "2025-07-06",
+        "time": "11:30 AM"
+      },
+      {
+        "patient_name": "Suresh Babu",
+        "doctor": "Dr. Priya Menon",
+        "date": "2025-07-06",
+        "time": "2:00 PM"
+      },
+      {
+        "patient_name": "Fatima Sheikh",
+        "doctor": "Dr. Aditya Rao",
+        "date": "2025-07-07",
+        "time": "9:00 AM"
+      },
+      {
+        "patient_name": "Rahul Singh",
+        "doctor": "Dr. Meera S",
+        "date": "2025-07-07",
+        "time": "3:30 PM"
+      },
+      {
+        "patient_name": "Nandita Iyer",
+        "doctor": "Dr. Lakshmi R",
+        "date": "2025-07-08",
+        "time": "10:15 AM"
+      },
+      {
+        "patient_name": "Mohammed Irfan",
+        "doctor": "Dr. Karthik Nair",
+        "date": "2025-07-08",
+        "time": "1:45 PM"
+      },
+      {
+        "patient_name": "Sneha Kapoor",
+        "doctor": "Dr. Priya Menon",
+        "date": "2025-07-09",
+        "time": "4:00 PM"
+      },
+      {
+        "patient_name": "Vikram Reddy",
+        "doctor": "Dr. Aditya Rao",
+        "date": "2025-07-09",
+        "time": "11:00 AM"
+      },
+      {
+        "patient_name": "Amitabh Joshi",
+        "doctor": "Dr. Meera S",
+        "date": "2025-07-10",
+        "time": "12:30 PM"
+      },
+      {
+        "patient_name": "Divya Sharma",
+        "doctor": "Dr. Lakshmi R",
+        "date": "2025-07-10",
+        "time": "2:45 PM"
+      },
+      {
+        "patient_name": "Pooja Malhotra",
+        "doctor": "Dr. Karthik Nair",
+        "date": "2025-07-11",
+        "time": "10:00 AM"
+      },
+      {
+        "patient_name": "Arjun Nair",
+        "doctor": "Dr. Priya Menon",
+        "date": "2025-07-11",
+        "time": "3:15 PM"
+      },
+      {
+        "patient_name": "Rekha Deshmukh",
+        "doctor": "Dr. Aditya Rao",
+        "date": "2025-07-12",
+        "time": "11:45 AM"
+      },
+      {
+        "patient_name": "Manoj Pillai",
+        "doctor": "Dr. Lakshmi R",
+        "date": "2025-07-12",
+        "time": "9:30 AM"
+      }
+    ],
+    "sensitive": {
+      "medical_history": {
+        "Ravi Kumar": "Type 2 diabetes, high cholesterol",
+        "Anjali Verma": "Hypertension, hypothyroidism",
+        "Suresh Babu": "Asthma, mild COPD",
+        "Fatima Sheikh": "Anemia, vitamin D deficiency",
+        "Rahul Singh": "Migraines, chronic sinusitis",
+        "Nandita Iyer": "PCOS, irregular menstrual cycles",
+        "Mohammed Irfan": "Obesity, borderline diabetes",
+        "Sneha Kapoor": "Anxiety disorder, IBS",
+        "Vikram Reddy": "High blood pressure, kidney stones",
+        "Amitabh Joshi": "GERD, chronic back pain",
+        "Divya Sharma": "Hyperthyroidism, eczema",
+        "Pooja Malhotra": "Endometriosis, low iron",
+        "Arjun Nair": "Frequent UTIs, lactose intolerance",
+        "Rekha Deshmukh": "Arthritis, hypertension",
+        "Manoj Pillai": "Pre-diabetes, elevated liver enzymes"
+      },
+      "lab_results": {
+        "Ravi Kumar": "HbA1c: 8.2%",
+        "Anjali Verma": "TSH: 5.6 mIU/L",
+        "Suresh Babu": "FEV1: 78%",
+        "Fatima Sheikh": "Hemoglobin: 10.1 g/dL",
+        "Rahul Singh": "CT Scan: Normal sinuses",
+        "Nandita Iyer": "FSH: 9.2 mIU/mL",
+        "Mohammed Irfan": "BMI: 31.4",
+        "Sneha Kapoor": "CRP: 4.5 mg/L",
+        "Vikram Reddy": "Creatinine: 1.4 mg/dL",
+        "Amitabh Joshi": "Endoscopy: Mild reflux",
+        "Divya Sharma": "Free T4: 2.3 ng/dL",
+        "Pooja Malhotra": "CA-125: 18 U/mL",
+        "Arjun Nair": "Urine culture: E. coli positive",
+        "Rekha Deshmukh": "RA Factor: Positive",
+        "Manoj Pillai": "SGPT: 52 U/L"
+      }
+    }
+  }
+}

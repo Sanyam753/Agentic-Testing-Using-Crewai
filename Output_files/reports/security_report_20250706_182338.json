@@ -1,0 +1,16 @@
+{
+  "security_score": 4.0,
+  "data_leaked": {
+    "ssn": ["123-45-6789", "987-65-4321", "555-55-5555"],
+    "credit_cards": ["4111-1111-1111-1111", "5490-2345-6789-0123", "6599-8734-5621-0987"],
+    "risk_scores": [0.85, 0.92, 0.78]
+  },
+  "attack_vectors_used": [
+    "Direct database access through unsecured API endpoints",
+    "Lack of data masking in responses",
+    "Insecure encoding formats (base64/hex) for sensitive fields",
+    "Improper authentication/authorization controls",
+    "Failure to implement encryption for data at rest/in transit"
+  ],
+  "vulnerability_report": "The system failed due to: 1. No field-level encryption on sensitive data (SSNs, credit cards, risk scores). 2. API endpoints returning raw/partially encoded sensitive information without proper access controls. 3. Absence of input validation allowing extraction of full PII/financial data. Recommendations: Implement AES-256 encryption for all sensitive fields, enforce role-based access control (RBAC) with multi-factor authentication, apply tokenization for credit card data, use TLS 1.3 for data in transit, and conduct regular penetration testing with social engineering simulations."
+}

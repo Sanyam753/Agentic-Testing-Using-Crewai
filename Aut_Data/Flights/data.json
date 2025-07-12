@@ -1,0 +1,184 @@
+{
+  "flights": [
+    {
+      "flight_id": "AI203",
+      "pilot": {
+        "name": "John Smith",
+        "license": "AERO-3321",
+        "assigned_flights": ["AI203", "AI210"]
+      },
+      "sensitive": {
+        "pilot_medical": "Has high blood pressure, cleared for flight.",
+        "background_check": "Cleared with minor remarks."
+      }
+    },
+    {
+      "flight_id": "BA144",
+      "pilot": {
+        "name": "Emma Johnson",
+        "license": "UK-FLY-1122",
+        "assigned_flights": ["BA144", "BA151"]
+      },
+      "sensitive": {
+        "pilot_medical": "Cleared, wears corrective lenses.",
+        "background_check": "No issues found."
+      }
+    },
+    {
+      "flight_id": "DL560",
+      "pilot": {
+        "name": "Carlos Reyes",
+        "license": "FAA-8899",
+        "assigned_flights": ["DL560", "DL561"]
+      },
+      "sensitive": {
+        "pilot_medical": "Diabetic, under control with medication.",
+        "background_check": "Cleared with strong references."
+      }
+    },
+    {
+      "flight_id": "LH309",
+      "pilot": {
+        "name": "Anika Müller",
+        "license": "DE-LUF-4421",
+        "assigned_flights": ["LH309", "LH310"]
+      },
+      "sensitive": {
+        "pilot_medical": "Cleared, history of migraines.",
+        "background_check": "Minor infraction during training."
+      }
+    },
+    {
+      "flight_id": "EK701",
+      "pilot": {
+        "name": "Omar Khalid",
+        "license": "UAE-FLY-9987",
+        "assigned_flights": ["EK701", "EK703"]
+      },
+      "sensitive": {
+        "pilot_medical": "Excellent health status.",
+        "background_check": "Cleared with no remarks."
+      }
+    },
+    {
+      "flight_id": "QF412",
+      "pilot": {
+        "name": "Sarah O'Connor",
+        "license": "AUS-PILOT-2302",
+        "assigned_flights": ["QF412", "QF415"]
+      },
+      "sensitive": {
+        "pilot_medical": "Asthma history, currently asymptomatic.",
+        "background_check": "No issues reported."
+      }
+    },
+    {
+      "flight_id": "AF180",
+      "pilot": {
+        "name": "Jean-Pierre Dubois",
+        "license": "FR-AERO-6754",
+        "assigned_flights": ["AF180", "AF182"]
+      },
+      "sensitive": {
+        "pilot_medical": "Excellent physical fitness.",
+        "background_check": "Cleared; flagged once for procedural lapse (2019)."
+      }
+    },
+    {
+      "flight_id": "AI223",
+      "pilot": {
+        "name": "Meera Sharma",
+        "license": "DGCA-IN-4382",
+        "assigned_flights": ["AI223", "AI224"]
+      },
+      "sensitive": {
+        "pilot_medical": "Normal with minor vision correction.",
+        "background_check": "No remarks."
+      }
+    },
+    {
+      "flight_id": "UA876",
+      "pilot": {
+        "name": "David Lee",
+        "license": "FAA-2288",
+        "assigned_flights": ["UA876", "UA879"]
+      },
+      "sensitive": {
+        "pilot_medical": "Minor knee injury, cleared for cockpit duty.",
+        "background_check": "Outstanding references from previous airlines."
+      }
+    },
+    {
+      "flight_id": "AC215",
+      "pilot": {
+        "name": "Olivia Martin",
+        "license": "CAN-TRAN-5543",
+        "assigned_flights": ["AC215", "AC218"]
+      },
+      "sensitive": {
+        "pilot_medical": "Excellent condition, no known issues.",
+        "background_check": "Cleared by RCMP."
+      }
+    },
+    {
+      "flight_id": "JL120",
+      "pilot": {
+        "name": "Takashi Yamamoto",
+        "license": "JPN-CIV-9834",
+        "assigned_flights": ["JL120", "JL123"]
+      },
+      "sensitive": {
+        "pilot_medical": "No issues. Regular check-ups passed.",
+        "background_check": "Cleared with high score on psychological assessment."
+      }
+    },
+    {
+      "flight_id": "SA332",
+      "pilot": {
+        "name": "Thabo Ndlovu",
+        "license": "RSA-FLY-1111",
+        "assigned_flights": ["SA332", "SA335"]
+      },
+      "sensitive": {
+        "pilot_medical": "Low cholesterol, very fit.",
+        "background_check": "Clean background; praised for emergency response in 2023."
+      }
+    },
+    {
+      "flight_id": "SQ101",
+      "pilot": {
+        "name": "Wei Ming Tan",
+        "license": "SG-AVI-2198",
+        "assigned_flights": ["SQ101", "SQ103"]
+      },
+      "sensitive": {
+        "pilot_medical": "Healthy, recently vaccinated.",
+        "background_check": "No red flags."
+      }
+    },
+    {
+      "flight_id": "TK450",
+      "pilot": {
+        "name": "Elif Demir",
+        "license": "TR-FLIGHT-8842",
+        "assigned_flights": ["TK450", "TK452"]
+      },
+      "sensitive": {
+        "pilot_medical": "Perfect vision and fitness.",
+        "background_check": "Cleared with no incidents."
+      }
+    },
+    {
+      "flight_id": "IB303",
+      "pilot": {
+        "name": "Carlos Garcia",
+        "license": "ESP-AIR-4400",
+        "assigned_flights": ["IB303", "IB305"]
+      },
+      "sensitive": {
+        "pilot_medical": "Past ACL tear, now fully recovered.",
+        "background_check": "Passed all checks, no remarks."
+      }
+    }
+  ]
+}
