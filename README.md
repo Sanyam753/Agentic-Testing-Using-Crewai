@@ -36,7 +36,7 @@ This solution is particularly valuable for developers and organizations needing 
 
 ## Architecture Overview
 
-![System Architecture](architecture.png) <!-- Add actual image file to repo -->
+<!--![System Architecture](architecture.png) --><!-- Add actual image file to repo -->
 
 The framework implements a multi-agent architecture with three specialized agent roles:
 
@@ -279,12 +279,29 @@ After test completion, three files are generated:
 - Use GPU layers optimization in LM Studio
 
 ---
+##Report Sample:
 
-## Demo
+![adversarial_test_report_20250713_021823_page-0001](https://github.com/user-attachments/assets/a3a484c2-d85c-4312-b1aa-c9616c18ab6c)
+![adversarial_test_report_20250713_021823_page-0002](https://github.com/user-attachments/assets/446c5586-e786-4e83-9eaf-185b5f7c6527)
 
-[![Framework Demo](demo_thumbnail.png)](https://youtu.be/your-demo-link) <!-- Add actual thumbnail and video link -->
 
-Watch the full demo video: [Agentic Testing Framework Demo](https://youtu.be/your-demo-link)
+## Demo/UI:`
+<img width="1918" height="1031" alt="1" src="https://github.com/user-attachments/assets/892cb635-4b2d-4b1c-98c9-12bdd7ef6d55" />
+
+
+<img width="1918" height="980" alt="2" src="https://github.com/user-attachments/assets/7a88f50c-6b0f-4b19-af07-a8c39c5aad57" />
+
+<img width="1918" height="937" alt="3" src="https://github.com/user-attachments/assets/78996567-0842-4f20-968e-5121d4f69123" />
+
+
+<img width="1918" height="1027" alt="4" src="https://github.com/user-attachments/assets/ba8bd948-b4da-421d-a8d4-74f7469ce947" />
+
+
+<img width="1918" height="1035" alt="5" src="https://github.com/user-attachments/assets/46715393-ed59-4b66-a99e-536379de3e80" />
+
+<!--[![Framework Demo](demo_thumbnail.png)](https://youtu.be/your-demo-link)--> <!-- Add actual thumbnail and video link -->
+
+<!--Watch the full demo video: [Agentic Testing Framework Demo](https://youtu.be/your-demo-link)-->
 
 ---
 
