@@ -9,6 +9,8 @@ export class TestManager {
         this.codingTestPrompt = '';
         this.generatedCodes = [];
         this.codeReviews = [];
+        this.pollAttempts = 0;
+        this.connectionMonitor = null;
         this.testFilesData = {
             prompts_file: null,
             responses_file: null,
@@ -19,11 +21,24 @@ export class TestManager {
         };
     }
 
+    // Removed the checkLLMHealth() method since the endpoint doesn't exist
+
     // Test execution methods
-    startTest() {
+    async startTest() {
         if (this.isTestRunning) {
             return;
         }
+        
+        // Clear logs and switch to logs view for live monitoring
+        window.uiManager.clearLogs();
+        
+        // Auto-switch to logs section to see live logs
+        window.showSection('logs');
+        window.uiManager.showNotification('Switched to logs view. Test starting...', 'info');
+        
+        // Show status that we're skipping health check
+        window.uiManager.updateStatus('Skipping LLM health check', 'warning');
+        window.uiManager.appendLogMessage('Skipping LLM health check. Please ensure LM Studio is running.', 'warning');
         
         const mode = document.querySelector('input[name="testMode"]:checked')?.value || 'normal';
         
@@ -96,6 +111,9 @@ export class TestManager {
                 // Start timer
                 this.testStartTime = Date.now();
                 this.testTimer = setInterval(() => this.updateTestTimer(), 1000);
+                
+                // Start connection monitor for long tests
+                this.startConnectionMonitor();
                 
                 // Poll for progress updates
                 this.pollTestProgress();
@@ -254,27 +272,61 @@ export class TestManager {
     }
 
     pollTestProgress() {
-        if (!this.currentTestId && this.isTestRunning) {
-            fetch('/api/execution-status')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'running') {
-                    // Continue polling
-                    setTimeout(() => this.pollTestProgress(), 2000);
-                } else if (data.status === 'completed') {
-                    this.handleTestComplete({success: true, result: data.result});
-                } else if (data.status === 'error') {
-                    this.handleTestComplete({success: false, error: data.error});
-                }
-            })
-            .catch(error => {
-                console.error('Error polling test progress:', error);
-                // Continue polling despite error
-                if (this.isTestRunning) {
-                    setTimeout(() => this.pollTestProgress(), 2000);
-                }
-            });
+        // Add max polling attempts to prevent infinite polling
+        if (!this.pollAttempts) {
+            this.pollAttempts = 0;
         }
+        
+        const maxPollAttempts = 300; // 10 minutes with 2-second intervals
+        
+        if (!this.isTestRunning || this.pollAttempts >= maxPollAttempts) {
+            if (this.pollAttempts >= maxPollAttempts) {
+                window.uiManager.showNotification('Test timed out. Please check if LM Studio is running properly.', 'error');
+                this.handleTestComplete({success: false, error: 'Test execution timed out'});
+            }
+            this.pollAttempts = 0;
+            return;
+        }
+        
+        this.pollAttempts++;
+        
+        fetch('/api/execution-status')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'running') {
+                // Continue polling
+                setTimeout(() => this.pollTestProgress(), 2000);
+            } else if (data.status === 'completed') {
+                this.pollAttempts = 0;
+                this.handleTestComplete({success: true, result: data.result});
+            } else if (data.status === 'error' || data.status === 'failed') {
+                this.pollAttempts = 0;
+                this.handleTestComplete({success: false, error: data.error || 'Test execution failed'});
+            } else {
+                // Unknown status, continue polling but log it
+                console.warn('Unknown test status:', data.status);
+                setTimeout(() => this.pollTestProgress(), 2000);
+            }
+        })
+        .catch(error => {
+            console.error('Error polling test progress:', error);
+            this.pollAttempts++;
+            
+            // If we get too many consecutive errors, stop polling
+            if (this.pollAttempts > 10) {
+                window.uiManager.showNotification('Lost connection to server. Test may have failed.', 'error');
+                this.handleTestComplete({success: false, error: 'Lost connection to server'});
+                this.pollAttempts = 0;
+            } else if (this.isTestRunning) {
+                // Continue polling despite error
+                setTimeout(() => this.pollTestProgress(), 2000);
+            }
+        });
     }
 
     updateTestTimer() {
@@ -311,6 +363,16 @@ export class TestManager {
         }
     }
 
+    startConnectionMonitor() {
+        // Monitor Socket.IO connection during test
+        this.connectionMonitor = setInterval(() => {
+            if (!window.socketManager.socket.connected) {
+                window.uiManager.appendLogMessage('Socket.IO connection lost, attempting to reconnect...', 'warning');
+                window.socketManager.socket.connect();
+            }
+        }, 5000); // Check every 5 seconds
+    }
+
     resetTestUI() {
         this.isTestRunning = false;
         this.updateTestControls(false);
@@ -320,8 +382,14 @@ export class TestManager {
             this.testTimer = null;
         }
         
+        if (this.connectionMonitor) {
+            clearInterval(this.connectionMonitor);
+            this.connectionMonitor = null;
+        }
+        
         this.currentTestId = null;
         this.testStartTime = null;
+        this.pollAttempts = 0;  // Reset poll attempts
     }
 
     clearResults() {
@@ -549,7 +617,7 @@ export class TestManager {
         })
         .catch(error => {
             console.error('Clear files error:', error);
-            window.uiManager.showNotification('Failed to clear test files', 'error');
+                window.uiManager.showNotification('Failed to clear test files', 'error');
         });
     }
 
@@ -631,7 +699,6 @@ export class TestManager {
         event.target.classList.add('active');
     }
 }
-
 
 // Export methods to global scope for HTML onclick handlers
 window.TestManager = TestManager;

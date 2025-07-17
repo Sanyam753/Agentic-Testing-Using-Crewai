@@ -502,19 +502,28 @@ function shareResults() {
 
 // Logs functions
 function loadLogs() {
+    console.log('Loading logs from server...');
     fetch('/api/logs')
         .then(response => response.json())
         .then(data => {
+            console.log('Received logs:', data);
             const logOutput = document.getElementById('logOutput');
             if (logOutput) {
                 logOutput.innerHTML = '';
-                data.forEach(log => {
-                    window.uiManager.appendLog(log);
-                });
+                if (Array.isArray(data)) {
+                    data.forEach(log => {
+                        window.uiManager.appendLog(log);
+                    });
+                } else {
+                    console.warn('Logs data is not an array:', data);
+                }
+            } else {
+                console.error('Log output element not found');
             }
         })
         .catch(error => {
             console.error('Error loading logs:', error);
+            window.uiManager.appendLogMessage('Error loading logs from server', 'error');
         });
 }
 
@@ -573,6 +582,25 @@ function viewLastResults() {
     refreshResults();
 }
 
+// Debug function to test logging
+function testLogging() {
+    console.log('Testing logging system...');
+    
+    // Test local logging
+    window.uiManager.appendLogMessage('Test log message from frontend', 'info');
+    window.uiManager.appendLogMessage('Test warning message', 'warning');
+    window.uiManager.appendLogMessage('Test error message', 'error');
+    window.uiManager.appendLogMessage('Test success message', 'success');
+    
+    // Test Socket.IO log emission
+    if (window.socketManager && window.socketManager.socket) {
+        window.socketManager.emitLog('Test log via Socket.IO', 'info');
+    }
+    
+    // Show logs section
+    showSection('logs');
+}
+
 // Export functions to global scope for HTML onclick handlers
 window.toggleTheme = toggleTheme;
 window.showSection = showSection;
@@ -592,6 +620,7 @@ window.openConfig = openConfig;
 window.viewLastResults = viewLastResults;
 window.loadAnalytics = loadAnalytics;
 window.updateDashboardStats = updateDashboardStats;
+window.testLogging = testLogging;  // Export test logging function
 
 // Export test management functions
 window.startTest = async function() {
