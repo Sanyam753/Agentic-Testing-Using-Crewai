@@ -1,6 +1,7 @@
 ## Agentic Testing Framework using CrewAI and LM Studio
 
-[Framework Overview]workflow.png<img width="1201" height="732" alt="Agentic testing" src="https://github.com/user-attachments/assets/d1e5805e-69db-403e-ab91-0f6ae7fc5fe8" /><!-- Add actual image file to repo -->
+[Framework Overview]workflow.png <img width="2604" height="2153" alt="Covasent_final drawio" src="https://github.com/user-attachments/assets/2139a456-f403-41ec-98c8-b7421b0b24b1" />
+
 
 ### Table of Contents
 1. [Introduction](#introduction)
