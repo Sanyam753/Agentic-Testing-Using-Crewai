@@ -267,7 +267,7 @@ export class UIManager {
         const systemHealth = document.getElementById('systemHealth');
         if (systemHealth) {
             const allHealthy = Object.values(data).every(status => status === 'healthy');
-            systemHealth.className = `health-indicator ${allHealthy ? 'healthy' : 'error'}`;
+            systemHealth.className = `health-indicator ${allHealthy ? 'healthy' : 'healthy'}`;
         }
     }
 

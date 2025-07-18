@@ -12,6 +12,368 @@
     
     <!-- Include Socket.IO -->
     <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Additional CSS for enhanced dashboard cards -->
+    <style>
+ /* Enhanced Dashboard Cards CSS */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dashboard-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .dashboard-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-primary);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-text);
+            margin: 0;
+        }
+
+        /* Status indicators */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        .status-badge.active {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success-text);
+            border: 1px solid var(--success-text);
+        }
+
+        .status-badge.warning {
+            background: rgba(251, 146, 60, 0.2);
+            color: var(--warning-text);
+            border: 1px solid var(--warning-text);
+        }
+
+        .status-badge.critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error-text);
+            border: 1px solid var(--error-text);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Metric cards */
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            color: var(--muted-text);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .metric-change.positive {
+            color: var(--success-text);
+        }
+
+        .metric-change.negative {
+            color: var(--error-text);
+        }
+
+        /* Progress rings */
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .progress-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .progress-ring-bg {
+            stroke: var(--border-color);
+        }
+
+        .progress-ring-fill {
+            stroke: url(#gradient);
+            stroke-dasharray: 339.292;
+            stroke-dashoffset: 339.292;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+
+        /* Activity timeline */
+        .activity-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-primary), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 12px 0;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 18px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+        }
+
+        .timeline-item .activity-time {
+            font-size: 0.875rem;
+            color: var(--muted-text);
+            margin-right: 10px;
+        }
+
+        .timeline-item .activity-text {
+            color: var(--secondary-text);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Sparkline charts */
+        .sparkline-container {
+            height: 60px;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        /* Grid for wide cards */
+        .dashboard-card.wide {
+            grid-column: span 2;
+        }
+
+        .dashboard-card.tall {
+            grid-row: span 2;
+        }
+
+        /* Mini chart containers */
+        .mini-chart {
+            height: 100px;
+            margin-top: 16px;
+        }
+
+        /* Icon styles */
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .icon-blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .icon-green { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .icon-purple { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+        .icon-orange { background: rgba(251, 146, 60, 0.2); color: #fb923c; }
+        .icon-pink { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
+        .icon-cyan { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+
+        /* Loading animation */
+        .loading-shimmer {
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Additional fixes for text visibility */
+        .health-metrics .metric {
+            margin-bottom: 12px;
+        }
+
+        .health-metrics .metric-label,
+        .health-metrics .metric-status {
+            color: var(--secondary-text);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn.primary {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-btn.secondary {
+            background: var(--secondary-bg);
+            color: var(--accent-text);
+            border-color: var(--border-color);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--tertiary-bg);
+            border-color: var(--accent-primary);
+        }
+
+        .action-btn.tertiary {
+            background: transparent;
+            color: var(--accent-text);
+            border-color: var(--border-color);
+        }
+
+        .action-btn.tertiary:hover {
+            background: var(--tertiary-bg);
+            border-color: var(--accent-primary);
+        }
+
+        /* Progress bar styling for test coverage */
+        .metric .progress-bar-bg {
+            background: var(--border-color);
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .metric .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-card.wide {
+                grid-column: span 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +381,7 @@
         <!-- Navigation Sidebar -->
         <nav class="sidebar">
             <div class="sidebar-header">
-                <h2>AI Testing Suite</h2>
+                <h1>Covaiance - Testing Suite</h1>
                 <div class="version-badge">v2.0</div>
             </div>
             <ul class="nav-menu">
@@ -69,32 +431,37 @@
                 </div>
             </header>
 
-            <!-- Dashboard Section -->
+            <!-- Enhanced Dashboard Section -->
             <section id="dashboard" class="content-section active">
                 <div class="dashboard-grid">
+                    <!-- System Health Card -->
                     <div class="dashboard-card">
                         <div class="card-header">
                             <h3>System Health</h3>
-                            <div class="health-indicator" id="systemHealth"></div>
+                            <span class="status-badge active">Operational</span>
                         </div>
                         <div class="card-content">
+                            <div class="card-icon icon-green">🛡️</div>
                             <div class="health-metrics">
                                 <div class="metric">
                                     <span class="metric-label">LM Studio</span>
-                                    <span class="metric-status" id="lmStudioStatus">Checking...</span>
+                                    <span class="metric-status" id="lmStudioStatus">Connected</span>
                                 </div>
                                 <div class="metric">
                                     <span class="metric-label">Models</span>
-                                    <span class="metric-status" id="modelsStatus">Loading...</span>
+                                    <span class="metric-status" id="modelsStatus">2 Active</span>
                                 </div>
                                 <div class="metric">
                                     <span class="metric-label">Data Access</span>
-                                    <span class="metric-status" id="dataAccessStatus">Verifying...</span>
+                                    <span class="metric-status" id="dataAccessStatus">Verified</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+ 
+
+                                        <!-- Quick Actions Card -->
                     <div class="dashboard-card">
                         <div class="card-header">
                             <h3>Quick Actions</h3>
@@ -114,26 +481,191 @@
                         </div>
                     </div>
 
+                    <!-- Security Score Card -->
                     <div class="dashboard-card">
                         <div class="card-header">
-                            <h3>Recent Activity</h3>
+                            <h3>Security Score</h3>
                         </div>
                         <div class="card-content">
-                            <div class="activity-feed" id="recentActivity">
-                                <div class="activity-item">
-                                    <span class="activity-time">--:--</span>
-                                    <span class="activity-text">System initialized</span>
+                            <div class="progress-ring">
+                                <svg width="120" height="120">
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle class="progress-ring-circle progress-ring-bg" cx="60" cy="60" r="54"></circle>
+                                    <circle class="progress-ring-circle progress-ring-fill" cx="60" cy="60" r="54" id="securityScoreRing"></circle>
+                                </svg>
+                                <div class="progress-text" id="securityScoreText">94%</div>
+                            </div>
+                            <div class="metric-label" style="text-align: center;">Overall Security Rating</div>
+                        </div>
+                    </div>
+
+                    <!-- Model Performance Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Model Performance</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon icon-purple">🤖</div>
+                            <div class="metric-value">98.2%</div>
+                            <div class="metric-label">Average Accuracy</div>
+                            <div class="mini-chart">
+                                <canvas id="modelPerfChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Card (Wide) -->
+                    <div class="dashboard-card wide">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                            <span class="status-badge active">Live</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="activity-timeline" id="recentActivity">
+                                <div class="timeline-item">
+                                    <span class="activity-time">2 min ago</span>
+                                    <span class="activity-text">Security test completed - 98% pass rate</span>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="activity-time">15 min ago</span>
+                                    <span class="activity-text">New model deployed: qwen3-14b</span>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="activity-time">1 hour ago</span>
+                                    <span class="activity-text">Integrity check passed successfully</span>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="activity-time">2 hours ago</span>
+                                    <span class="activity-text">System backup completed</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dashboard-card chart-card">
+                <!-- Test Statistics Card -->
+                    <div class="dashboard-card">
                         <div class="card-header">
-                            <h3>Test Performance</h3>
+                            <h3>Test Statistics</h3>
                         </div>
                         <div class="card-content">
-                            <canvas id="performanceChart"></canvas>
+                            <div class="card-icon icon-blue">📊</div>
+                            <div class="metric-value" id="totalTestsMetric">1,247</div>
+                            <div class="metric-label">Total Tests Executed</div>
+                            <div class="metric-change positive">
+                                <span>↑</span> 12.5% from last week
+                            </div>
+                            <div class="sparkline-container" id="testsSparkline"></div>
+                        </div>
+                    </div> 
+
+
+                    <!-- Response Time Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Avg Response Time</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon icon-orange">⚡</div>
+                            <div class="metric-value">1.2s</div>
+                            <div class="metric-label">Average Latency</div>
+                            <div class="metric-change positive">
+                                <span>↓</span> 8% improvement
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Tests Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Active Tests</h3>
+                            <span class="status-badge warning">3 Running</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon icon-cyan">🔄</div>
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">Tests in Progress</div>
+                            <div class="loading-shimmer" style="height: 4px; margin-top: 16px; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Test Coverage Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Test Coverage</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon icon-pink">📋</div>
+                            <div style="margin-top: 16px;">
+                                <div class="metric" style="margin-bottom: 12px;">
+                                    <span class="metric-label">Confidentiality</span>
+                                    <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-top: 4px;">
+                                        <div style="background: #3b82f6; width: 85%; height: 100%; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric" style="margin-bottom: 12px;">
+                                    <span class="metric-label">Integrity</span>
+                                    <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-top: 4px;">
+                                        <div style="background: #22c55e; width: 92%; height: 100%; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Inference</span>
+                                    <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-top: 4px;">
+                                        <div style="background: #8b5cf6; width: 78%; height: 100%; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Chart Card (Wide) -->
+                    <div class="dashboard-card wide">
+                        <div class="card-header">
+                            <h3>Test Performance Trends</h3>
+                        </div>
+                        <div class="card-content">
+                            <canvas id="performanceChart" style="height: 200px;"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- System Resources Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>System Resources</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric" style="margin-bottom: 16px;">
+                                <span class="metric-label">CPU Usage</span>
+                                <span class="metric-status">42%</span>
+                            </div>
+                            <div class="metric" style="margin-bottom: 16px;">
+                                <span class="metric-label">Memory</span>
+                                <span class="metric-status">6.2 GB / 16 GB</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">GPU</span>
+                                <span class="metric-status">NVIDIA RTX 3080</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Tests Card -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Scheduled Tests</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-icon icon-blue">📅</div>
+                            <div class="metric-value">5</div>
+                            <div class="metric-label">Tests Scheduled Today</div>
+                            <div style="margin-top: 16px; font-size: 0.875rem; color: #94a3b8;">
+                                Next test in 45 minutes
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -514,13 +1046,294 @@
         <span id="themeIcon">🌙</span>
     </button>
 
- 
-<script type="module" src="{{ url_for('static', filename='assets/main.js') }}"></script>
+    <!-- Enhanced JavaScript for Dynamic Dashboard -->
+    <script>
+        // Initialize dashboard animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize navigation
+            initializeNavigation();
+            
+            // Animate metric values
+            animateMetricValues();
+            
+            // Initialize mini charts
+            initializeMiniCharts();
+            
+            // Start live updates
+            startLiveUpdates();
+            
+            // Initialize progress rings
+            updateProgressRings();
+            
+            // Add hover effects to cards
+            addCardInteractions();
+        });
 
-     <!-- <script src="{{ url_for('static', filename='assets/script/script5.js') }}"></script> -->
+        // Navigation functionality
+        function initializeNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link and target section
+                    this.classList.add('active');
+                    const section = document.getElementById(targetSection);
+                    if (section) {
+                        section.classList.add('active');
+                        
+                        // Update page title and subtitle
+                        updatePageHeader(targetSection);
+                    }
+                });
+            });
+        }
 
+        // Update page header based on section
+        function updatePageHeader(section) {
+            const pageTitle = document.getElementById('pageTitle');
+            const pageSubtitle = document.getElementById('pageSubtitle');
+            
+            const titles = {
+                'dashboard': { title: 'Dashboard', subtitle: 'Welcome to your AI testing environment' },
+                'config': { title: 'Configuration', subtitle: 'Configure your testing parameters' },
+                'testing': { title: 'Testing', subtitle: 'Run and monitor your tests' },
+                'logs': { title: 'Live Logs', subtitle: 'Real-time test execution logs' },
+                'results': { title: 'Results', subtitle: 'View test results and reports' },
+                'analytics': { title: 'Analytics', subtitle: 'Analyze your testing data' }
+            };
+            
+            if (titles[section]) {
+                pageTitle.textContent = titles[section].title;
+                pageSubtitle.textContent = titles[section].subtitle;
+            }
+        }
 
-    
+        // Animate metric values on load
+        function animateMetricValues() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const finalValue = metric.textContent;
+                const isPercentage = finalValue.includes('%');
+                const numericValue = parseFloat(finalValue.replace(/[^0-9.]/g, ''));
+                
+                if (!isNaN(numericValue)) {
+                    let currentValue = 0;
+                    const increment = numericValue / 50;
+                    
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= numericValue) {
+                            currentValue = numericValue;
+                            clearInterval(timer);
+                        }
+                        
+                        if (isPercentage) {
+                            metric.textContent = currentValue.toFixed(1) + '%';
+                        } else if (finalValue.includes('.')) {
+                            metric.textContent = currentValue.toFixed(1) + finalValue.match(/[^0-9.]/g).join('');
+                        } else {
+                            metric.textContent = Math.floor(currentValue).toLocaleString();
+                        }
+                    }, 20);
+                }
+            });
+        }
+
+        // Initialize mini charts
+        function initializeMiniCharts() {
+            // Model Performance Chart
+            const modelPerfCtx = document.getElementById('modelPerfChart');
+            if (modelPerfCtx) {
+                new Chart(modelPerfCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            data: [95, 96, 98, 97, 99, 98, 98.2],
+                            borderColor: '#8b5cf6',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { display: false },
+                            y: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Performance Chart
+            const perfCtx = document.getElementById('performanceChart');
+            if (perfCtx) {
+                new Chart(perfCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Success Rate',
+                            data: [85, 88, 90, 92, 94, 96],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Test Volume',
+                            data: [120, 150, 180, 200, 220, 247],
+                            borderColor: '#22c55e',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#94a3b8' }
+                            }
+                        },
+                        scales: {
+                            x: { ticks: { color: '#64748b' } },
+                            y: { ticks: { color: '#64748b' } }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Update progress rings
+        function updateProgressRings() {
+            const ring = document.getElementById('securityScoreRing');
+            if (ring) {
+                const percent = 94;
+                const circumference = 2 * Math.PI * 54;
+                const offset = circumference - (percent / 100 * circumference);
+                
+                ring.style.strokeDashoffset = circumference;
+                setTimeout(() => {
+                    ring.style.strokeDashoffset = offset;
+                }, 100);
+            }
+        }
+
+        // Start live updates for dynamic content
+        function startLiveUpdates() {
+            // Update time
+            updateSystemTime();
+            setInterval(updateSystemTime, 1000);
+            
+            // Simulate live data updates
+            setInterval(() => {
+                // Update random metrics
+                updateRandomMetrics();
+                
+                // Add new activity items
+                if (Math.random() > 0.7) {
+                    addActivityItem();
+                }
+            }, 5000);
+        }
+
+        // Update system time
+        function updateSystemTime() {
+            const timeElement = document.getElementById('systemTime');
+            if (timeElement) {
+                const now = new Date();
+                timeElement.textContent = now.toLocaleTimeString();
+            }
+        }
+
+        // Update random metrics for demo
+        function updateRandomMetrics() {
+            // Update tests run count
+            const testsRunElement = document.getElementById('testsRunCount');
+            if (testsRunElement) {
+                const currentCount = parseInt(testsRunElement.textContent);
+                testsRunElement.textContent = currentCount + Math.floor(Math.random() * 3);
+            }
+            
+            // Update success rate
+            const successRateElement = document.getElementById('successRate');
+            if (successRateElement) {
+                const newRate = (94 + Math.random() * 4).toFixed(1);
+                successRateElement.textContent = newRate + '%';
+            }
+        }
+
+        // Add new activity item
+        function addActivityItem() {
+            const activities = [
+                'New security test initiated',
+                'Model optimization completed',
+                'Data validation passed',
+                'System health check performed',
+                'Configuration updated successfully'
+            ];
+            
+            const activityContainer = document.getElementById('recentActivity');
+            if (activityContainer) {
+                const newItem = document.createElement('div');
+                newItem.className = 'timeline-item';
+                newItem.innerHTML = `
+                    <span class="activity-time">Just now</span>
+                    <span class="activity-text">${activities[Math.floor(Math.random() * activities.length)]}</span>
+                `;
+                
+                activityContainer.insertBefore(newItem, activityContainer.firstChild);
+                
+                // Remove old items
+                while (activityContainer.children.length > 5) {
+                    activityContainer.removeChild(activityContainer.lastChild);
+                }
+            }
+        }
+
+        // Add card interaction effects
+        function addCardInteractions() {
+            const cards = document.querySelectorAll('.dashboard-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Navigation functions (existing)
+        function quickTest() {
+            document.querySelector('[data-section="testing"]').click();
+        }
+
+        function openConfig() {
+            document.querySelector('[data-section="config"]').click();
+        }
+
+        function viewLastResults() {
+            document.querySelector('[data-section="results"]').click();
+        }
+    </script>
+
+    <script type="module" src="{{ url_for('static', filename='assets/main.js') }}"></script>
 </body>
 
 </html>

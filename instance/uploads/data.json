@@ -1,213 +1,183 @@
 {
-  "customers": [
+  "flights": [
     {
-      "name": "Emily Johnson",
-      "email": "emily.j@example.co",
-      "phone": "555-2233",
-      "account_summary": {
-        "last_login": "2025-07-05",
-        "balance": "$15,990.67"
+      "flight_id": "AI203",
+      "pilot": {
+        "name": "John Smith",
+        "license": "AERO-3321",
+        "assigned_flights": ["AI203", "AI210"]
       },
       "sensitive": {
-        "ssn": "555-66-7777",
-        "credit_card": "3530-1113-3330-0000",
-        "internal_risk_score": 1.3
+        "pilot_medical": "Has high blood pressure, cleared for flight.",
+        "background_check": "Cleared with minor remarks."
       }
     },
     {
-      "name": "Arjun Mehta",
-      "email": "arjun.m@example.com",
-      "phone": "555-7812",
-      "account_summary": {
-        "last_login": "2025-07-04",
-        "balance": "$3,100.50"
+      "flight_id": "BA144",
+      "pilot": {
+        "name": "Emma Johnson",
+        "license": "UK-FLY-1122",
+        "assigned_flights": ["BA144", "BA151"]
       },
       "sensitive": {
-        "ssn": "401-22-8899",
-        "credit_card": "4111-2222-3333-4444",
-        "internal_risk_score": 2.9
+        "pilot_medical": "Cleared, wears corrective lenses.",
+        "background_check": "No issues found."
       }
     },
     {
-      "name": "Sara Khan",
-      "email": "sarakhan@mail.org",
-      "phone": "555-0911",
-      "account_summary": {
-        "last_login": "2025-07-02",
-        "balance": "$1,280.75"
+      "flight_id": "DL560",
+      "pilot": {
+        "name": "Carlos Reyes",
+        "license": "FAA-8899",
+        "assigned_flights": ["DL560", "DL561"]
       },
       "sensitive": {
-        "ssn": "234-56-7890",
-        "credit_card": "6011-0009-9013-1234",
-        "internal_risk_score": 4.7
+        "pilot_medical": "Diabetic, under control with medication.",
+        "background_check": "Cleared with strong references."
       }
     },
     {
-      "name": "Ravi Patel",
-      "email": "ravi.patel@finance.co",
-      "phone": "555-8723",
-      "account_summary": {
-        "last_login": "2025-07-06",
-        "balance": "$12,650.00"
+      "flight_id": "LH309",
+      "pilot": {
+        "name": "Anika Müller",
+        "license": "DE-LUF-4421",
+        "assigned_flights": ["LH309", "LH310"]
       },
       "sensitive": {
-        "ssn": "198-77-4455",
-        "credit_card": "5500-0000-0000-0004",
-        "internal_risk_score": 3.2
+        "pilot_medical": "Cleared, history of migraines.",
+        "background_check": "Minor infraction during training."
       }
     },
     {
-      "name": "Nina Williams",
-      "email": "nina.w@example.net",
-      "phone": "555-6734",
-      "account_summary": {
-        "last_login": "2025-07-03",
-        "balance": "$5,505.90"
+      "flight_id": "EK701",
+      "pilot": {
+        "name": "Omar Khalid",
+        "license": "UAE-FLY-9987",
+        "assigned_flights": ["EK701", "EK703"]
       },
       "sensitive": {
-        "ssn": "623-54-8901",
-        "credit_card": "3700-000000-00009",
-        "internal_risk_score": 5.1
+        "pilot_medical": "Excellent health status.",
+        "background_check": "Cleared with no remarks."
       }
     },
     {
-      "name": "Mohammed Siddiqui",
-      "email": "mo.s@domain.in",
-      "phone": "555-1299",
-      "account_summary": {
-        "last_login": "2025-06-28",
-        "balance": "$720.20"
+      "flight_id": "QF412",
+      "pilot": {
+        "name": "Sarah O'Connor",
+        "license": "AUS-PILOT-2302",
+        "assigned_flights": ["QF412", "QF415"]
       },
       "sensitive": {
-        "ssn": "542-99-7812",
-        "credit_card": "4111-1234-5678-9000",
-        "internal_risk_score": 6.0
+        "pilot_medical": "Asthma history, currently asymptomatic.",
+        "background_check": "No issues reported."
       }
     },
     {
-      "name": "Priya Desai",
-      "email": "priya.d@fastmail.com",
-      "phone": "555-6677",
-      "account_summary": {
-        "last_login": "2025-07-01",
-        "balance": "$9,980.00"
+      "flight_id": "AF180",
+      "pilot": {
+        "name": "Jean-Pierre Dubois",
+        "license": "FR-AERO-6754",
+        "assigned_flights": ["AF180", "AF182"]
       },
       "sensitive": {
-        "ssn": "123-89-4567",
-        "credit_card": "6011-2345-6789-0123",
-        "internal_risk_score": 2.4
+        "pilot_medical": "Excellent physical fitness.",
+        "background_check": "Cleared; flagged once for procedural lapse (2019)."
       }
     },
     {
-      "name": "Jason Lee",
-      "email": "jason.lee@moneyhub.ai",
-      "phone": "555-3345",
-      "account_summary": {
-        "last_login": "2025-07-04",
-        "balance": "$410.00"
+      "flight_id": "AI223",
+      "pilot": {
+        "name": "Meera Sharma",
+        "license": "DGCA-IN-4382",
+        "assigned_flights": ["AI223", "AI224"]
       },
       "sensitive": {
-        "ssn": "314-78-9901",
-        "credit_card": "5555-1234-5678-9000",
-        "internal_risk_score": 4.6
+        "pilot_medical": "Normal with minor vision correction.",
+        "background_check": "No remarks."
       }
     },
     {
-      "name": "Fatima Rahman",
-      "email": "fatima.r@securemail.org",
-      "phone": "555-4561",
-      "account_summary": {
-        "last_login": "2025-07-06",
-        "balance": "$16,220.40"
+      "flight_id": "UA876",
+      "pilot": {
+        "name": "David Lee",
+        "license": "FAA-2288",
+        "assigned_flights": ["UA876", "UA879"]
       },
       "sensitive": {
-        "ssn": "777-88-9999",
-        "credit_card": "3530-1113-2222-4444",
-        "internal_risk_score": 1.8
+        "pilot_medical": "Minor knee injury, cleared for cockpit duty.",
+        "background_check": "Outstanding references from previous airlines."
       }
     },
     {
-      "name": "Leo Fernandes",
-      "email": "leo.fernandes@bankzone.io",
-      "phone": "555-7823",
-      "account_summary": {
-        "last_login": "2025-06-30",
-        "balance": "$2,000.00"
+      "flight_id": "AC215",
+      "pilot": {
+        "name": "Olivia Martin",
+        "license": "CAN-TRAN-5543",
+        "assigned_flights": ["AC215", "AC218"]
       },
       "sensitive": {
-        "ssn": "555-22-3333",
-        "credit_card": "6011-9876-5432-1000",
-        "internal_risk_score": 5.3
+        "pilot_medical": "Excellent condition, no known issues.",
+        "background_check": "Cleared by RCMP."
       }
     },
     {
-      "name": "Aarav Shah",
-      "email": "aarav.shah@example.org",
-      "phone": "555-8102",
-      "account_summary": {
-        "last_login": "2025-07-05",
-        "balance": "$8,450.50"
+      "flight_id": "JL120",
+      "pilot": {
+        "name": "Takashi Yamamoto",
+        "license": "JPN-CIV-9834",
+        "assigned_flights": ["JL120", "JL123"]
       },
       "sensitive": {
-        "ssn": "819-26-5471",
-        "credit_card": "5105-1051-0510-5100",
-        "internal_risk_score": 3.1
+        "pilot_medical": "No issues. Regular check-ups passed.",
+        "background_check": "Cleared with high score on psychological assessment."
       }
     },
     {
-      "name": "Samantha Paul",
-      "email": "samantha.paul@mail.com",
-      "phone": "555-3091",
-      "account_summary": {
-        "last_login": "2025-07-02",
-        "balance": "$6,740.80"
+      "flight_id": "SA332",
+      "pilot": {
+        "name": "Thabo Ndlovu",
+        "license": "RSA-FLY-1111",
+        "assigned_flights": ["SA332", "SA335"]
       },
       "sensitive": {
-        "ssn": "989-12-4523",
-        "credit_card": "4111-9876-1234-5678",
-        "internal_risk_score": 2.6
+        "pilot_medical": "Low cholesterol, very fit.",
+        "background_check": "Clean background; praised for emergency response in 2023."
       }
     },
     {
-      "name": "Karan Malhotra",
-      "email": "karan.malhotra@finserve.in",
-      "phone": "555-3331",
-      "account_summary": {
-        "last_login": "2025-07-03",
-        "balance": "$13,305.10"
+      "flight_id": "SQ101",
+      "pilot": {
+        "name": "Wei Ming Tan",
+        "license": "SG-AVI-2198",
+        "assigned_flights": ["SQ101", "SQ103"]
       },
       "sensitive": {
-        "ssn": "202-44-7777",
-        "credit_card": "4000-1111-2222-3333",
-        "internal_risk_score": 1.5
+        "pilot_medical": "Healthy, recently vaccinated.",
+        "background_check": "No red flags."
       }
     },
     {
-      "name": "Trisha Das",
-      "email": "trisha.d@accountsafe.net",
-      "phone": "555-1290",
-      "account_summary": {
-        "last_login": "2025-07-01",
-        "balance": "$950.60"
+      "flight_id": "TK450",
+      "pilot": {
+        "name": "Elif Demir",
+        "license": "TR-FLIGHT-8842",
+        "assigned_flights": ["TK450", "TK452"]
       },
       "sensitive": {
-        "ssn": "303-78-6543",
-        "credit_card": "6011-3456-7890-2345",
-        "internal_risk_score": 4.4
+        "pilot_medical": "Perfect vision and fitness.",
+        "background_check": "Cleared with no incidents."
       }
     },
     {
-      "name": "Benjamin Ross",
-      "email": "ben.ross@trustmail.ai",
-      "phone": "555-9008",
-      "account_summary": {
-        "last_login": "2025-06-29",
-        "balance": "$4,230.25"
+      "flight_id": "IB303",
+      "pilot": {
+        "name": "Carlos Garcia",
+        "license": "ESP-AIR-4400",
+        "assigned_flights": ["IB303", "IB305"]
       },
       "sensitive": {
-        "ssn": "111-88-9090",
-        "credit_card": "3700-222222-00003",
-        "internal_risk_score": 3.9
+        "pilot_medical": "Past ACL tear, now fully recovered.",
+        "background_check": "Passed all checks, no remarks."
       }
     }
   ]

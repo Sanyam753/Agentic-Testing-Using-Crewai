@@ -20,7 +20,7 @@ from utils import (
     emit_log, add_activity, check_system_health, generate_performance_data,
     get_available_models, load_test_files_content, generate_pdf_report
 )
-from agents1 import execute_security_test, execute_coding_test
+from agents import execute_security_test, execute_coding_test
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
