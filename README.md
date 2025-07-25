@@ -303,7 +303,7 @@ After test completion, three files are generated:
 
 <!--[![Framework Demo](demo_thumbnail.png)](https://youtu.be/your-demo-link)--> <!-- Add actual thumbnail and video link -->
 
-<!--Watch the full demo video: [Agentic Testing Framework Demo](https://youtu.be/your-demo-link)-->
+Watch the full demo video: [Agentic Testing Framework Demo](https://youtu.be/IOHm3V9JQM8)
 
 ---
 
